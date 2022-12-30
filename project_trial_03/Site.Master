@@ -1,0 +1,98 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="project_trial_03.Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title><%:Page.Title %></title>
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/font-awesome.css" rel="stylesheet" />
+    <script src="crystalreportviewers13/js/crviewer/crv.js"></script>
+    <script src="Scripts/jquery-3.4.1.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body style="background-color: #adcbe2">
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <nav class="navbar navbar-expand-lg navbar-light bg-info" style="height: 6em;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav col-10">
+                    <a class="nav-link active text-white" href="Default.aspx"><i class="fa fa-home"></i>HOME</a>
+                    <a class="nav-link text-white" href="/frmViewAircraft.aspx"><i class="fa fa-plane"></i>AIRCRAFTS</a>
+                    <a class="nav-link text-white" href="/Members/frmCreateUserAccount.aspx"><i class="fa fa-user"></i>ACCOUNT </a>
+                    <a class="nav-link text-white" href="/frmAbout.aspx"><i class="fa fa-archive"></i>ABOUT</a>
+                    <%
+                        if (Request.IsAuthenticated && Page.User.Identity.Name == "admin")
+                        {
+                    %>
+
+                    <div class="nav-item dropdown bg-info">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i>MANAGE</a>
+                        <div class="dropdown-menu bg-info">
+                            <a class="dropdown-item text-white" href="/frmManageAircrafts.aspx"><i class="fa fa-plane"></i>AIRCRAFTS</a>
+                            <a class="dropdown-item text-white" href="/frmManageUserDetails.aspx"><i class="fa fa-users"></i>USERS</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown bg-info">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-tasks"></i>REPORT</a>
+                        <div class="dropdown-menu bg-info">
+                            <a class="dropdown-item text-white" href="/frmAircraftReport.aspx"><i class="fa fa-plane"></i>AIRCRAFT REPORT</a>
+                            <%--<a class="dropdown-item text-white" href="/frmManageUserDetails.aspx"><i class="fa fa-users"></i>USER REPORT</a>--%>
+                        </div>
+                    </div>
+
+                    <%
+                        }
+                    %>
+                </div>
+
+            </div>
+
+            <div class="navbar-nav col-2 justify-content-end">
+                <%
+                    if (Request.IsAuthenticated)
+                    {
+                %>
+                <a class="nav-link text-white" href="#"><i class="fa fa-user-md"></i>Hi <%=Page.User.Identity.Name %></a>
+                <asp:LinkButton ID="lbtnLogOut" CssClass="nav-link" runat="server" OnClick="lbtnLogOut_Click"><i class="fa fa-sign-out"></i>Log Out</asp:LinkButton>
+                <%
+                    }
+                    else
+                    {
+                %>
+                <a class="nav-link text-white" href="frmRegister.aspx">REGISTER</a>
+                <a class="nav-link text-white" href="frmLogIn.aspx"><i class="fa fa-sign-in"></i>LOG IN</a>
+                <%
+                    }
+                %>
+            </div>
+
+        </nav>
+
+        <div>
+            <asp:ContentPlaceHolder ID="main" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <footer>
+            <%--<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <asp:Timer ID="Timer1" OnTick="Timer1_Tick" Interval="1000" runat="server"></asp:Timer>
+                <asp:Label ID="lblTimer" runat="server" Text="Label" CssClass="align-content-center bg-light"></asp:Label>
+                
+                
+            </ContentTemplate>
+        </asp:UpdatePanel>--%>
+            <p class="text-center text-white mt-5 pt-4 pb-5 bg-info" style="height:5em">ESAD_CS_R51_M06_Monthly-Evidence-Project</p>
+        </footer>
+    </form>
+
+    <asp:ContentPlaceHolder ID="footer" runat="server">
+    </asp:ContentPlaceHolder>
+    <script src="Scripts/bootstrap.js"></script>
+</body>
+</html>
